@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Krokodillespill</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+      #main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main"></div>
+
+    <script>
+      let score = 0;
+      let randomNumberOne = "";
+      let randomNumberTwo = "";
+      let rightOrWrong = document.getElementById("isRight") || "";
+      let inputValue;
+
+      function reset() {
+        randomNumberOne = Math.ceil(Math.random() * 10);
+        randomNumberTwo = Math.ceil(Math.random() * 10);
+        view();
+      }
+
+      function submit() {
+        if (inputValue == "=" && randomNumberOne == randomNumberTwo) {
+          rightOrWrong = "Correct!";
+          score++;
+        } else if (inputValue == ">" && randomNumberOne > randomNumberTwo) {
+          rightOrWrong = "Correct!";
+          score++;
+        } else if (inputValue == "<" && randomNumberOne < randomNumberTwo) {
+          rightOrWrong = "Correct!";
+          score++;
+        } else {
+          rightOrWrong = "wrong, try again!";
+          score--;
+        }
+        inputValue = null;
+        reset();
+      }
+
+      function view() {
+        document.getElementById("main").innerHTML = `
+          <h1>Krokodillespill</h1>
+          <button id="resetButton" onclick="reset()">Reset</button>
+          <div id="container">
+            <span id="numberOne">${randomNumberOne}</span>
+            <input id="inputField" oninput="inputValue = this.value"/>
+            <span id="numberTwo">${randomNumberTwo}</span>
+            <button id="submitButton" onclick="submit()">Submit</button>
+            <span>Poeng: </span><span id="score">${score}</span>
+          </div>
+          <span id="isRight">${rightOrWrong}</span>
+        `;
+      }
+      view();
+    </script>
+  </body>
+</html>
